@@ -1,0 +1,47 @@
+@startuml SecurityServiceSystem
+!theme plain
+title Security Service
+
+interface Lockable {
+    +lock()
+    +unlock()
+    +isLocked()
+}
+
+interface Securable {
+    +checkSecurity()
+}
+
+class Door {
+    -locked: boolean
+}
+
+class Window {
+    -locked: boolean
+}
+
+class Car {
+    -doors: Door[]
+}
+
+class House {
+    -doors: Door[]
+    -windows: Window[]
+}
+
+class SecurityService {
+    +checkAllSecurity()
+    +monitorObject()
+}
+
+Door ..|> Lockable
+Window ..|> Lockable
+Car ..|> Securable
+House ..|> Securable
+
+Car ||--o{ Door
+House ||--o{ Door
+House ||--o{ Window
+SecurityService ||--o{ Securable
+
+@enduml
